@@ -1,0 +1,4 @@
+var 关键字声明的变量可以被重复声明，而 let 和 const 声明的变量不允许重复声明。
+var 关键字声明的变量作用域是函数级别（function scope），而 let 和 const 声明的变量作用域是块级别（block scope）。
+var 声明的变量可以在声明之前使用，而 let 和 const 声明的变量必须先声明后使用。
+const 声明的变量是常量，一旦声明不允许再次赋值，而 let 和 var 声明的变量可以重新赋值。
