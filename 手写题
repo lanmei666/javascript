@@ -1,0 +1,40 @@
+promise.all()
+
+```jsx
+function myPromiseAll(promises) {
+  return new Promise((resolve, reject) => {
+    const results = []; // 存放结果的数组
+    let count = 0; // 计数器，记录已完成的 Promise 数量
+    for (let i = 0; i < promises.length; i++) {
+      promises[i].then(
+        (result) => {
+          results[i] = result; // 将 Promise 的结果存入数组中
+          count++; // 计数器加一
+          if (count === promises.length) { // 当所有 Promise 都完成时，返回结果数组
+            resolve(results);
+          }
+        },
+        (reason) => {
+          reject(reason); // 如果有一个 Promise 失败，则整个 Promise.all() 失败
+        }
+      );
+    }
+  });
+}
+```
+
+**Array.prototype.reduce()**
+
+```jsx
+function myReduce(arr, callback, initialValue) {
+  let accumulator = initialValue === undefined ? undefined : initialValue; // 初始值
+  for (let i = 0; i < arr.length; i++) { // 遍历数组
+    if (accumulator !== undefined) { // 如果有初始值，则调用回调函数
+      accumulator = callback.call(undefined, accumulator, arr[i], i, arr);
+    } else {
+      accumulator = arr[i]; // 否则将第一个元素作为初始值
+    }
+  }
+  return accumulator; // 返回累加器的最终值
+}
+```
