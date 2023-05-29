@@ -1,0 +1,137 @@
+1. JavaScript 有哪些数据类型？
+
+- **`undefined`**：表示未定义的值，即变量声明了但未赋值或者对象没有该属性。
+- **`null`**：表示空对象，即变量被赋值为 **`null`**。
+- **`boolean`**：表示布尔值，即 **`true`** 或 **`false`**。
+- **`number`**：表示数字，包括整数和浮点数。
+- **`string`**：表示字符串。
+- **`symbol`**：表示唯一的值，用于创建对象的属性名。
+- **`object`**：表示对象，包括数组、函数、日期等。
+
+2. Symbol 和 Bigint 简单介绍
+
+**`Symbol`** 是 ECMAScript 6 中引入的一种新的数据类型，用于表示独一无二的值。可以使用 **`Symbol()`** 函数创建一个 **`Symbol`** 类型的值，每个 **`Symbol`** 值都是唯一的。**`BigInt`** 是 ECMAScript 2020 中引入的一种新的数据类型，用于表示大整数。可以使用 **`n`** 后缀或者 **`BigInt()`** 函数创建一个 **`BigInt`** 类型的值。
+
+3 var let const 的区别
+
+ **`var`** 声明的变量作用域是函数级别，**`let`** 和 **`const`** 声明的变量作用域是块级别。**`var`** 声明的变量可以被重复声明，**`let`** 和 **`const`** 声明的变量不能被重复声明。**`const`** 声明的变量必须在声明时初始化，而 **`let`** 和 **`var`** 声明的变量可以在之后初始化。另外，**`let`** 声明的变量可以被重新赋值，而 **`const`** 声明的变量不能被重新赋值，但是其属性和方法可以被修改。
+
+4. 如何判断变量类型
+
+可以使用 **`typeof`** 运算符来判断一个变量的类型。**`typeof`** 运算符返回一个字符串，表示变量的数据类型。例如，**`typeof undefined`** 返回 **`'undefined'`**，**`typeof null`** 返回 **`'object'`**，**`typeof true`** 返回 **`'boolean'`**，**`typeof 123`** 返回 **`'number'`**，**`typeof 'hello'`** 返回 **`'string'`**，**`typeof Symbol()`** 返回 **`'symbol'`**，**`typeof {}`** 返回 **`'object'`**，**`typeof []`** 返回 **`'object'`**，**`typeof function(){}`** 返回 **`'function'`**。
+
+5. 如何判断一个变量是null？
+
+可以使用 **`=== null`** 判断一个变量是否为 **`null`**。例如，**`let x = null; if (x === null) { console.log('x is null'); }`**
+
+6. undefined 和 null 的区别
+
+**`undefined`** 表示一个变量没有被赋值，或者对象没有该属性。例如，**`let x; console.log(x);`** 输出 **`undefined`**。**`null`** 表示一个变量被赋值为 **`null`**，即为空对象。例如，**`let x = null; console.log(x);`** 输出 **`null`**。
+
+7. Const 定义的值一定不能改变吗？
+
+**`const`** 声明的变量在声明时必须初始化，并且其值在初始化后不能再改变。但是如果 **`const`** 声明的变量是一个对象，那么对象内部的属性和方法是可以被修改的。例如，**`const obj = { name: 'Tom' }; obj.name = 'Jerry'; console.log(obj);`** 输出 **`{ name: 'Jerry' }`**。
+
+8. const 声明生成对象的时候，如何使其不可更改？
+
+可以使用 **`Object.freeze()`** 方法来冻结一个对象，使其内部的属性和方法不能被修改。可以在 **`const`** 声明对象后使用 **`Object.freeze()`** 来使其内部的属性和方法不可更改。例如，**`const obj = Object.freeze({ name: 'Tom' }); obj.name = 'Jerry'; console.log(obj);`** 输出 **`{ name: 'Tom' }`**。
+
+9. 闭包的应用，用来解决什么问题，谈谈理解
+
+闭包可以用来解决作用域链的问题，即内部函数可以访问外部函数的变量。闭包还可以用来实现封装私有变量。
+
+10. 说一说箭头函数中 this 的指向
+
+箭头函数中的 **`this`** 指向定义时所在的作用域。如果箭头函数被绑定到对象的方法中，那么 **`this`** 指向该对象。如果箭头函数被绑定到事件处理函数中，那么 **`this`** 指向触发事件的元素。例如
+
+```jsx
+let obj = {
+  name: 'Tom',
+  sayHi: () => {
+    console.log(`Hi, my name is ${this.name}`);
+  }
+};
+obj.sayHi(); // 输出 "Hi, my name is undefined"
+```
+
+11. 箭头函数可以用 call 或者 apply 改变 this 指向吗？
+
+箭头函数不能使用 **`call`** 或者 **`apply`** 来改变 **`this`** 指向，因为箭头函数的 **`this`** 是定义时所在的作用域。例如
+
+```jsx
+let obj = {
+  name: 'Tom',
+  sayHi: () => {
+    console.log(`Hi, my name is ${this.name}`);
+  }
+};
+let obj2 = { name: 'Jerry' };
+obj.sayHi.call(obj2); // 输出 "Hi, my name is undefined"
+```
+
+12. bind、apply、call 的区别
+
+1. **`bind`**、**`apply`**、**`call`** 都是用来改变函数内部 **`this`** 指向的方法，它们的区别在于传入参数的方式不同。**`bind`** 方法返回一个新的函数，并把 **`this`** 绑定到传入的对象上；**`apply`** 和 **`call`** 方法都是立即调用函数，并把 **`this`** 绑定到传入的对象上，不同之处在于传入参数的方式不同，**`apply`** 方法传入参数为数组，**`call`** 方法传入参数为逐个列举的参数。例如
+
+```jsx
+let obj = { name: 'Tom' };
+function sayHi() { console.log(Hi, my name is ${this.name}); }
+let boundFn = sayHi.bind(obj);
+boundFn(); // 输出 "Hi, my name is Tom"
+sayHi.apply(obj, [1, 2, 3]); // 输出 "Hi, my name is Tom"
+sayHi.call(obj, 1, 2）
+```
+
+13. 说说 new 都做了些什么
+
+ **`new`** 操作符会创建一个空对象，并将其原型指向构造函数的原型。然后将该空对象作为 **`this`**，调用构造函数，并将构造函数的返回值作为 **`new`** 表达式的返回值。如果构造函数没有显式返回一个对象，则返回创建的空对象。
+ 
+ 
+ 
+ 
+ # css
+
+1. 说说 position
+
+**`position`** 是 CSS 中用来控制元素定位的属性之一。常见的取值有 **`static`**、**`relative`**、**`absolute`**、**`fixed`** 和 **`sticky`**。其中，**`static`** 是默认值，表示元素处于文档流中的正常位置，**`relative`** 表示相对于元素原始位置进行定位，**`absolute`** 表示相对于最近的非 **`static`** 祖先元素进行定位，**`fixed`** 表示相对于视口进行定位，**`sticky`** 表示在滚动时相对于其父元素和视口之间的位置固定定位。通过设置 **`top`**、**`bottom`**、**`left`**、**`right`** 属性可以控制元素的位置。
+
+2. flex 属性都有什么，其作用是什么
+
+**`flex`** 属性是用来控制弹性布局的属性。常见的属性有 **`flex-direction`**、**`flex-wrap`**、**`flex-flow`**、**`justify-content`**、**`align-items`** 和 **`align-content`**。其中，**`flex-direction`** 表示主轴的方向，可以取值为 **`row`**、**`row-reverse`**、**`column`** 和 **`column-reverse`**；**`flex-wrap`** 表示是否换行，可以取值为 **`nowrap`**、**`wrap`** 和 **`wrap-reverse`**；**`flex-flow`** 是 **`flex-direction`** 和 **`flex-wrap`** 的缩写；**`justify-content`** 表示主轴上的对齐方式，可以取值为 **`flex-start`**、**`flex-end`**、**`center`**、**`space-between`**、**`space-around`** 和 **`space-evenly`**；**`align-items`** 表示交叉轴上的对齐方式，可以取值为 **`flex-start`**、**`flex-end`**、**`center`**、**`baseline`** 和 **`stretch`**；**`align-content`** 表示多根轴线的对齐方式，可以取值为 **`flex-start`**、**`flex-end`**、**`center`**、**`space-between`**、**`space-around`** 和 **`stretch`**。
+
+3. CSS 优先级
+
+- 选择器越具体，优先级越高。例如，**`#id`** 选择器优先级高于 **`.class`** 选择器。
+- 相同优先级的样式规则，后声明的优先级高。例如，后面声明的 **`.class`** 样式规则会覆盖前面声明的 **`.class`** 样式规则。
+- **`!important`** 声明的样式规则优先级最高。例如，**`color: red !important;`** 的优先级高于其他样式规则。
+- 行内样式的优先级最高。例如，**`<div style="color: red;"></div>`** 中的 **`color`** 样式规则的优先级高于其他样式规则。
+
+4. 元素水平垂直居中
+
+- 使用 **`flexbox`** 布局实现居中。可以设置父元素的 **`display: flex; justify-content: center; align-items: center;`**，使其子元素水平垂直居中。
+- 使用 **`position`** 和 **`transform`** 实现居中。可以设置父元素的 **`position: relative;`** 和子元素的 **`position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);`**，使其子元素水平垂直居中。
+- 使用 **`table`** 布局实现居中。可以设置父元素的 **`display: table;`** 和子元素的 **`display: table-cell; vertical-align: middle; text-align: center;`**，使其子元素水平垂直居中。
+- 使用 **`grid`** 布局实现居中。可以设置父元素的 **`display: grid; place-items: center;`**，使其子元素水平垂直居中。
+
+
+# 异步
+
+1. 说说 Event Loop
+
+**`Event Loop`** 是 JavaScript 运行时的一种机制，用于处理异步任务。它的主要作用是协调执行顺序，保证任务的按序执行。JavaScript 引擎是单线程的，一次只能执行一个任务，如果任务过多，会阻塞主线程，导致页面卡顿，影响用户体验。为了解决这个问题，JavaScript 引入了异步任务的概念，将一些耗时的任务放到后台执行，主线程继续执行其他任务。当异步任务完成时，将其加入任务队列，等待主线程空闲时执行。Event Loop 就是负责监控任务队列的机制，它不断地从任务队列中取出任务，执行任务，直到任务队列为空，然后进入等待状态，等待有新的任务加入队列
+
+2. EventLoop JS 事件循环队列、宏任务和微任务
+
+任务队列分为 **`宏任务队列`** 和 **`微任务队列`** 两种。**`宏任务`** 包括整体代码（script）、定时器（setTimeout、setInterval）、I/O 操作、UI 渲染等，而 **`微任务`** 则包括Promise、process.nextTick、Object.observe 等。在每次 Event Loop 的执行过程中，先执行当前宏任务队列中的全部任务，然后执行当前微任务队列中的全部任务，执行完毕后再进入下一次 Event Loop 的循环。在同一次 Event Loop 中，微任务执行的优先级高于宏任务。
+
+3. Promise 都有哪些方法
+
+- **`Promise.prototype.then(onFulfilled, onRejected)`**：用于处理 Promise 对象的状态变化。当 Promise 对象的状态变为 **`fulfilled`** 时，执行 **`onFulfilled`** 函数；当 Promise 对象的状态变为 **`rejected`** 时，执行 **`onRejected`** 函数。**`then()`** 方法返回一个新的 Promise 对象，可以链式调用。
+- **`Promise.prototype.catch(onRejected)`**：用于捕获 Promise 对象状态变为 **`rejected`** 的情况，相当于 **`then(null, onRejected)`**。
+- **`Promise.prototype.finally(onFinally)`**：用于在 Promise 对象状态变化后执行一些操作，不管 Promise 对象的状态是 **`fulfilled`** 还是 **`rejected`**。**`finally()`** 方法返回一个新的 Promise 对象，可以链式调用。
+- **`Promise.all(iterable)`**：用于将多个 Promise 对象包装成一个新的 Promise 对象，等待所有的 Promise 对象都成功后，返回一个包含所有 Promise 对象结果的数组。如果其中任意一个 Promise 对象失败，则整个 Promise 对象失败。
+- **`Promise.race(iterable)`**：用于将多个 Promise 对象包装成一个新的 Promise 对象，等待其中任意一个 Promise 对象成功或失败后，返回该 Promise 对象的结果。
+
+
+
+ 
